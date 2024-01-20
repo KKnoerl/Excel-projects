@@ -1,0 +1,19 @@
+=IFERROR(
+  AVERAGE(
+    IF(
+      (ISNUMBER(#ValueRange#))
+      *(MONTH(#DateRange#)=(MONTH(DATEVALUE($#RefrenceDate#&" 1"))))
+      *(DAY(#DateRange#)=#RefrenceDate#),
+        #ValueRange#)
+)," ")
+
+# Explanation:
+
+=IFERROR(                                                                  # IFERROR() lets us enter a formula and what to do when there's an error at the end
+  AVERAGE(                                                                 # take the average. can easily change to MAX() or MIN()
+    IF(                                                                    # include the values if
+      (ISNUMBER(#ValueRange#))                                             # the value is a number
+      *(MONTH(#DateRange#)=(MONTH(DATEVALUE($#RefrenceDate#&" 1"))))       # and the date month matches the refrence month
+      *(DAY(#DateRange#)=#RefrenceDate#),                                  # and the date day matches the refrence day
+        #ValueRange#)                                                      # then take the corisponding value from the value range
+)," ")                                                                     # this is the result for IFERROR: " " 
