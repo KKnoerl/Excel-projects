@@ -1,0 +1,24 @@
+=IFS(
+  AND(#Value1a#="",#Value1b#="",#Value2a#="",#Value2b#=""),
+    "",
+  AND(#Value1a#="",#Value1b#=""),
+    "START",
+  AND(#Value2a#="",#Value2b#=""),
+    SUM(#Value1a#,#Value1b#),
+  TRUE,
+    SUM(#Value1a#,#Value1b#)-SUM(#Value2a#,#Value2b#))
+
+# Explanation:
+# Assume Value1 is the starting count and can have 2 entries Value1a and Value1b
+# Assume Value2 is the ending count and can have 2 entries Value2a and Value2b
+# We subtract ending count from starting to get number sold. Assumes no stock is added without declaring in starting count
+
+=IFS(                                                         # IFS() allows several conditions and results for each. First true condition determins the result
+  AND(#Value1a#="",#Value1b#="",#Value2a#="",#Value2b#=""),   # if all 4 values are blank
+    "",                                                       # return "" (a blank cell) ie. no values entered
+  AND(#Value1a#="",#Value1b#=""),                             # if both the starting values are blank
+    "START",                                                  # return "START" ie. starting counts are missing. assuming you don't aquire items in the shift
+  AND(#Value2a#="",#Value2b#=""),                             # if both the ending values are blank
+    SUM(#Value1a#,#Value1b#),                                 # return the sum of the starting values. ie. all were sold
+  TRUE,                                                       # if none of these conditionals trigger
+    SUM(#Value1a#,#Value1b#)-SUM(#Value2a#,#Value2b#))        # take the sume of the starting values and subtract the sum of the end values

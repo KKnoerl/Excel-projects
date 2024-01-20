@@ -1,1 +1,0 @@
-=IFS(AND(E8="",E9="",H8="",H9=""),"",AND(E8="",E9=""),"START",AND(H8="",H9=""),SUM(E8,E9),TRUE,SUM(E8,E9)-SUM(H8,H9))
