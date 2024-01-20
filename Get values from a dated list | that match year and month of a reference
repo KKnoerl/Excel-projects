@@ -1,0 +1,19 @@
+=IFERROR(
+  AVERAGE(
+    IF(
+      (ISNUMBER(#ValueRange#))
+      *(MONTH(#DateRange#)=(MONTH(DATEVALUE(#ReferenceDate#&" 1"))))
+      *(YEAR(#DateRange#)=#ReferenceDate#),
+    #ValueRange#)),
+  " ")
+
+# Explanation:
+
+=IFERROR(                                                               # IFERROR lets a set a message instead of an error like leave blank or no data, at the end
+  AVERAGE(                                                              # AVERAGE, can easily be MAX or MIN
+    IF(                                                                 # IF allows us to set a number of conditions
+      (ISNUMBER(#ValueRange#))                                          # if the value in the ValueRange is a number
+      *(MONTH(#DateRange#)=(MONTH(DATEVALUE(#ReferenceDate#&" 1"))))    # and if the month in the DateRange is equal to the month in the RefrenceMonth
+      *(YEAR(#DateRange)=#ReferenceDate),                               # and if the year in the DateRange is equal to the year in the ReferenceMonth
+    #ValueRange#)),                                                     # then count the value in the ValueRange
+  " ")                                                                  # if error the result is " "
