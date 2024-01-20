@@ -1,0 +1,5 @@
+=IFERROR(AVERAGEIF(#DateRange#,"<>"),"No Data")
+
+# Explanation:
+# IFERROR lets us set a result when the formula results in an error, such as averaging no values. we set that at the end as "No Data"
+# AVERAGEIF lets us set the range and one condition for the data. in this case we use "<>" for not 0
