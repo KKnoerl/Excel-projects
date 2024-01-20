@@ -1,0 +1,19 @@
+=IFERROR(
+  AVERAGE(
+    IF(
+      (ISNUMBER(#ValueRange#))
+      *(MONTH(#DateRange#)=(MONTH(DATEVALUE(#RefrenceDate#&" 1"))))
+      *(WEEKDAY(#DateRange)=(MATCH(#RefrenceDate#,{"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"},0))),
+        #ValueRange#)),
+  " ")
+
+# Explanation:
+
+=IFERROR(                                                                                             # IFERROR lets a set a message instead of an error like leave blank or no data, at the end
+  AVERAGE(                                                                                            # AVERAGE, can easily be MAX or MIN
+    IF(                                                                                               # IF allows us to set a number of conditions
+      (ISNUMBER(#ValueRange#))                                                                        # if the value in the ValueRange is a number
+      *(MONTH(#DateRange#)=(MONTH(DATEVALUE(#RefrenceDate#&" 1"))))                                   # and if the month in the DateRange is equal to the month in the RefrenceMonth
+      *(WEEKDAY(#DateRange)=(MATCH(#RefrenceDate#,{"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"},0))),     # and if the weekday is equal to the match value of the weekday
+        #ValueRange#)),                                                                               # then use the value from the range
+  " ")                                                                                                # if error result is " " for a blank looking cell
