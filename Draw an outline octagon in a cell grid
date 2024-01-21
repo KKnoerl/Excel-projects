@@ -1,0 +1,20 @@
+=IF(OR(
+  AND(#InputSide#<=(COLUMN()-#HOffSet#),(COLUMN()-#HOffSet#)<=2*#InputSide#-1,(ROW()-#VOffSet#)=1),
+  AND(#InputSide#<=(ROW()-#VOffSet#),(ROW()-#VOffSet#)<=2*#InputSide#-1,(COLUMN()-#HOffSet#)=1),
+  AND(#InputSide#<=(COLUMN()-#HOffSet#),(COLUMN()-#HOffSet#)<=2*#InputSide#-1,(ROW()-#VOffSet#)=3*#InputSide#-2),
+  AND(#InputSide#<=(ROW()-#VOffSet#),(ROW()-#VOffSet#)<=2*#InputSide#-1,(COLUMN()-#HOffSet#)=3*#InputSide#-2),
+  (COLUMN()-#HOffSet#)+(ROW()-#VOffSet#)=#InputSide#+1,
+  AND((COLUMN()-#HOffSet#)-(ROW()-#VOffSet#)=2*#InputSide#-2,(COLUMN()-#HOffSet#)<=3*#InputSide#-2),
+  AND((ROW()-#VOffSet#)-(COLUMN()-#HOffSet#)=2*#InputSide#-2,(ROW()-#VOffSet#)<=3*#InputSide#-2),
+  AND((COLUMN()-#HOffSet#)+(ROW()-#VOffSet#)=5*#InputSide#-3,(COLUMN()-#HOffSet#)<=3*#InputSide#-2,(ROW()-#VOffSet#)<=3*#InputSide#-2)
+),1,0)
+
+# Determine the coordiant that you want to act as the top left corner of the drawing grid. 
+  # HOffSet = Column number -1 for example Column C (C=3) would need an HOffSet of 2 to act as a 1 for the grid
+  # VOffSet - Row number -1 for example Row 5 would need a VOffSet of 4 to act as a 1 for the grid
+# format your grid area to be square-shaped cells. An easy way to do this is to highlight the area, right click, column width, and set it to 2.14
+# InputSide must use double $s for example if your input is cell A1, type as $A$1. This way your refrence cell won't shift when formula is dragged across the grid
+# Drag the formuala across your grid area (one axis and then the other)
+  # 1 is a correct cell in the rectangle, and 0 is a non rectagle cell
+  # highlight your grid area and use conditional formatting to highlight cells equal to 1, you can do a custom format to change the font color and fill color to the same solid color
+  # do this also for 0. you can change the font color to white and the fill to no fill.
